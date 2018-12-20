@@ -1,5 +1,11 @@
 import math
 import csv
+import tkinter as Tk
+from tkinter.filedialog import askopenfilename,asksaveasfilename
+
+ # we don't want a full GUI, so keep the root window from appearing
+# filename = askopenfilename() # show an "Open" dialog box and return the path to the selected file
+# print(filename)
 
 smart_pole_name = []
 start_coordiates_x = []
@@ -10,7 +16,7 @@ distance = []
 height = []
 smart_pole_second_name = []
 
-with open("C:\\Users\kjarada\Desktop\Copy of OCS RAKING 181214.csv") as csv_file:
+with open(askopenfilename()) as csv_file:
     csv_reader = csv.reader(csv_file)
     for line in csv_reader:
         smart_pole_name.append(line[0])
@@ -40,7 +46,7 @@ for i in range(len(distance)):
   terminal_coordinates_x.append(start_coordiates_x[i] + distance[i]*math.sin(init_bearing_radians[i]))
   terminal_coordinates_y.append(start_coordiates_y[i] + distance[i]*math.cos(init_bearing_radians[i]))
 
-with open("C:\\Users\kjarada\Desktop\\result OCS RAKING 181214.csv", 'w+') as csv_file_results:
+with open(asksaveasfilename(), 'w+') as csv_file_results:
     csv_writer = csv.writer(csv_file_results, delimiter = ",")
     csv_writer.writerows(map(lambda x,y,z: [x,y,z],smart_pole_second_name, terminal_coordinates_x, terminal_coordinates_y))
 
